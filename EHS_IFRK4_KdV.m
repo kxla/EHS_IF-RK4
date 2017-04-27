@@ -22,8 +22,7 @@ t_max = 10;
 
 u = tanh(-10*x)/2;
 v = -5*(sech(10*x)).^2;
-v_hat = fft(v);
-V_hat = exp(mu*1i.*(k.^3).*t_0);
+V_hat = fft(v);
 
 tdata = zeros(nplots+1,1);
 uu = u;zeros(N,t_max/dt);
