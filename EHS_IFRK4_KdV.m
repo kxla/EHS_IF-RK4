@@ -6,12 +6,12 @@ tic;
 
 nplots = 50;
 
-c_0 = 1;
+c_0 = .1;
 p = 1;
-nu = 1;
-mu = 1;
-L = 400;
-N = 4000;
+nu = 0;
+mu = .1;
+L = 50;
+N = 2^11;
 dx = 2*L/N;
 x = (dx-L):dx:L;
 u_m = 1/2;
@@ -19,11 +19,15 @@ u_p = -1/2;
 k = [0:N/2, -N/2+1:-1]*(pi/L);
 
 t = 0;
-dt = 1e-3;
-t_max = 10;
+dt = 5e-3;
+t_max = 1;
 
-u = (tanh(-10*x)+(tanh(10*(x+1))-1)/2+(tanh(10*(x-1))+1)/2)/2;
-v = 5*(sech(10*(x-1)).^2/2-sech(10*x).^2+sech(10*(x+1)).^2/2);
+syms y;
+func(y) = (tanh(-10*y)+(tanh(10*(y+1))-1)/2+(tanh(10*(y-1))+1)/2)/2;
+df = diff(func,y);
+u = double(subs(func,y,x));
+v = double(subs(df,y,x));
+
 V_hat = fft(v);
 
 tdata = zeros(nplots+1,1);
@@ -40,6 +44,7 @@ for k3=1:nplots
   
     V_hat = V_hat + (1/6).*(a + 2.*b + 2.*c + d);
     v_hat = exp(-1i*mu.*(k.^3).*t).*V_hat;
+    
     v = ifft(exp(-1i*mu*(k.^3)*t).*V_hat);
   
     for j = 2:N
@@ -47,7 +52,7 @@ for k3=1:nplots
     end
   
     u = u - trapz(x,x.*v)/(2*L) + (x+L)*(u_p-u_m)/(2*L)+u_m;
-        
+    
     t = t + dt;
   
   end
