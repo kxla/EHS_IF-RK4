@@ -10,8 +10,8 @@ L = 1;
 N = 32;
 dx = 2*L/N;
 x = (dx-L):dx:L;
-u_minus = 1/2;
-u_plus = -1/2;
+u_m = 1/2;
+u_p = -1/2;
 k = [0:N/2, -N/2+1:-1]*(pi/L);
 
 t_0 = 0;
@@ -30,5 +30,12 @@ for t = t_0:dt:t_max
   d = dt .* (-1i*c_0.*k .* exp(1i*mu.*(k.^3).*(t+dt)) .* fft((u.^p).*v)-nu.*(k.^2).*(V_hat+c));
   
   V_hat = V_hat + (1/6).*(a + 2.*b + 2.*c + d);
+  v_hat = exp(-1i*mu.*(k.^3).*t).*V_hat;
   v = ifft(exp(-1i*mu*(k.^3)*t).*V_hat);
+  
+  for j = 2:N
+    u(j) = sum(fft(v)./(1i*k).*exp(1i*k*x(j)));
+    u = u - trapz(x,x.*v)/(2*L) + (x+L)*(u_p-u_m)/(2*L)+u_m;
+  end
+  
 end
