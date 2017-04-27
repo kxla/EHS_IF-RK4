@@ -41,7 +41,7 @@ for k3=1:nplots
     v = ifft(exp(-1i*mu*(k.^3)*t).*V_hat);
   
     for j = 2:N
-      u(j) = sum(v_hat./(1i*k).*exp(1i*k*x(j)));
+      u(j) = sum(v_hat(2:end)./(1i*k(2:end)).*exp(1i*k(2:end)*x(j)));
     end
   
     u = u - trapz(x,x.*v)/(2*L) + (x+L)*(u_p-u_m)/(2*L)+u_m;
