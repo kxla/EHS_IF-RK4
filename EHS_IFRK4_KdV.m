@@ -30,7 +30,7 @@ uu = u;zeros(N,t_max/dt);
 
 for k3=1:nplots
 
-  for index=1:round(tmax/dt/nplots)
+  for index=1:round(t_max/dt/nplots)
   
     a = dt .* (-1i*c_0.*k .* exp(1i*mu.*(k.^3).*t) .* fft((u.^p).*v)-nu.*(k.^2).*V_hat);
     b = dt .* (-1i*c_0.*k .* exp(1i*mu.*(k.^3).*(t+dt/2)) .* fft((u.^p).*v)-nu.*(k.^2).*(V_hat+a./2));
@@ -59,5 +59,5 @@ end
 figure
 waterfall(x,tdata,real(uu)), view(0,70),
 xlim([-L,L]);
-ylim([0,tmax]);
+ylim([0,t_max]);
 grid off
