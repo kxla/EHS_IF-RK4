@@ -14,6 +14,9 @@ u_minus = 1/2;
 u_plus = -1/2;
 k = [0:N/2, -N/2+1:-1]*(pi/L);
 
+t = 0;
+dt = 1e-2;
+
 u = tanh(-10*x)/2;
-v = -5*(sech(10*x))^2;
+v = -5*(sech(10*x)).^2;
 v_hat = fft(v);
