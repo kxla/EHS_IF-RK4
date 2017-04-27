@@ -2,6 +2,8 @@
 % Method given by El, Hoefer, Shearer
 % Solves the Riemann problem u_t + c_0 u^p u_x = nu u_xx + mu u_xxx
 
+tic
+
 nplots = 50;
 
 c_0 = 1;
@@ -60,3 +62,5 @@ waterfall(x,tdata,real(uu)), view(0,70),
 xlim([-L,L]);
 ylim([0,t_max]);
 grid off
+
+toc
