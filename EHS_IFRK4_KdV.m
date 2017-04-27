@@ -28,5 +28,7 @@ for t = t_0:dt:t_max
   b = dt .* (-1i*c_0.*k .* exp(1i*mu.*(k.^3).*(t+dt/2)) .* fft((u.^p).*v)-nu.*(k.^2).*(V_hat+a./2));
   c = dt .* (-1i*c_0.*k .* exp(1i*mu.*(k.^3).*(t+dt/2)) .* fft((u.^p).*v)-nu.*(k.^2).*(V_hat+b./2));
   d = dt .* (-1i*c_0.*k .* exp(1i*mu.*(k.^3).*(t+dt)) .* fft((u.^p).*v)-nu.*(k.^2).*(V_hat+c));
+  
   V_hat = V_hat + (1/6).*(a + 2.*b + 2.*c + d);
+  v = ifft(exp(-1i*mu*(k.^3)*t).*V_hat);
 end
