@@ -34,7 +34,7 @@ for t = t_0:dt:t_max
   v = ifft(exp(-1i*mu*(k.^3)*t).*V_hat);
   
   for j = 2:N
-    u(j) = sum(fft(v)./(1i*k).*exp(1i*k*x(j)));
+    u(j) = sum(v_hat./(1i*k).*exp(1i*k*x(j)));
     u = u - trapz(x,x.*v)/(2*L) + (x+L)*(u_p-u_m)/(2*L)+u_m;
   end
   
