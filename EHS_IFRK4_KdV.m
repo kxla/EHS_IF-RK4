@@ -22,8 +22,8 @@ t = 0;
 dt = 1e-3;
 t_max = 10;
 
-u = tanh(-10*x)/2+(tanh(10*(x+1))-1)/4+(tanh(10*(x-1))+1)/4;
-v = -5*(sech(10*x)).^2;
+u = (tanh(-10*x)+(tanh(10*(x+1))-1)/2+(tanh(10*(x-1))+1)/2)/2;
+v = 5/2*sech(10*(x-1)).^2-5*sech(10*x).^2+5/2*sech(10*(x+1)).^2;
 V_hat = fft(v);
 
 tdata = zeros(nplots+1,1);
