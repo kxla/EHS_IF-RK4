@@ -23,6 +23,9 @@ v = -5*(sech(10*x)).^2;
 v_hat = fft(v);
 V_hat = exp(mu*1i.*(k.^3).*t_0);
 
+uu = u;zeros(N,t_max/dt);
+jj = 2;
+
 for t = t_0:dt:t_max
   a = dt .* (-1i*c_0.*k .* exp(1i*mu.*(k.^3).*t) .* fft((u.^p).*v)-nu.*(k.^2).*V_hat);
   b = dt .* (-1i*c_0.*k .* exp(1i*mu.*(k.^3).*(t+dt/2)) .* fft((u.^p).*v)-nu.*(k.^2).*(V_hat+a./2));
@@ -35,7 +38,10 @@ for t = t_0:dt:t_max
   
   for j = 2:N
     u(j) = sum(v_hat./(1i*k).*exp(1i*k*x(j)));
-    u = u - trapz(x,x.*v)/(2*L) + (x+L)*(u_p-u_m)/(2*L)+u_m;
   end
+  
+    u = u - trapz(x,x.*v)/(2*L) + (x+L)*(u_p-u_m)/(2*L)+u_m;
+    uu(jj,:) = u;
+    jj = jj+1;
   
 end
