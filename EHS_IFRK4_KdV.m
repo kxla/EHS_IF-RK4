@@ -58,6 +58,6 @@ end
 
 figure
 waterfall(x,tdata,real(uu)), view(0,70),
-xlim([-xmax/2,xmax/2]);
+xlim([-L,L]);
 ylim([0,tmax]);
 grid off
