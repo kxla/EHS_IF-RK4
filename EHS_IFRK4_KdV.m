@@ -12,6 +12,7 @@ dx = 2*L/N;
 x = (dx-L):dx:L;
 u_minus = 1/2;
 u_plus = -1/2;
+k = [0:N/2, -N/2+1:-1]*(pi/L);
 
 u = tanh(-10*x)/2;
 v = -5*(sech(10*x))^2;
