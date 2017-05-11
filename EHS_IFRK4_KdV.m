@@ -57,7 +57,7 @@ for k3=1:nplots
     
     t = t+dt;
     
-    d = dt * exp(-L*(t+dt)).*((-c_0/2)*1i*k).*fft((ifft(exp(L*(t+dt).*(v+c)))).^2);
+    d = dt * exp(-L*t).*((-c_0/2)*1i*k).*fft((ifft(exp(L*t.*(v+c)))).^2);
     
     v = v + (1/6).*(a+2.*b+2.*c+d);
     
