@@ -19,8 +19,8 @@ alpha = 1;
 xi = 1;
 
 t = 0;
-dt = 5e-5;
-t_max = 0.5;
+dt = 5e-3;
+t_max = 10;
 
 %{
 syms y;
@@ -54,18 +54,17 @@ for k3=1:nplots
     a = dt * exp(-L*t).*((-c_0/2)*1i*k).*fft((ifft(exp(L*t).*v)).^2);
     b = dt * exp(-L*(t+(dt/2))).*((-c_0/2)*1i*k).*fft((ifft(exp(L*(t+(dt/2))).*(v+(a/2)))).^2);
     c = dt * exp(-L*(t+(dt/2))).*((-c_0/2)*1i*k).*fft((ifft(exp(L*(t+(dt/2))).*(v+(b/2)))).^2);
-    d = dt * exp(-L*(t+dt)).*((-c_0/2)*1i*k).*fft((ifft(exp(L*(t+dt).*(v+c)))).^2);
     
     t = t+dt;
+    
+    d = dt * exp(-L*(t+dt)).*((-c_0/2)*1i*k).*fft((ifft(exp(L*(t+dt).*(v+c)))).^2);
     
     v = v + (1/6).*(a+2.*b+2.*c+d);
     
   end
   
-  u = ifft(exp(L*t).*v);
-  
   tdata(k3+1,1) = t;
-  uu(k3+1,:) = u;
+  uu(k3+1,:) = ifft(exp(L*t).*v);
   
 end
 
